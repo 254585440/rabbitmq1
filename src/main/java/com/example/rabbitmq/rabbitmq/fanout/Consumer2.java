@@ -1,4 +1,4 @@
-package com.example.rabbitmq.fanout;
+package com.example.rabbitmq.rabbitmq.fanout;
 
 import com.example.rabbitmq.util.ConnectionUtil;
 import com.rabbitmq.client.*;
@@ -6,7 +6,7 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 
 
-public class Consumer3 {
+public class Consumer2 {
     public static void main(String[] args) throws Exception {
         Connection connection = ConnectionUtil.getConnection();
         Channel channel = connection.createChannel();
@@ -24,7 +24,7 @@ public class Consumer3 {
         channel.basicConsume(queneName,true,new DefaultConsumer(channel){
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("消费者3：" + new String(body));
+                System.out.println("消费者2：" + new String(body));
             }
         });
 

@@ -32,7 +32,6 @@ public class StreamTest {
 
 
         List<User> userList1 = userList.stream()
-                .distinct()
                 .sorted((a,b) ->{
                     if(a.getAge().compareTo(b.getAge()) == 0){
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -55,7 +54,8 @@ public class StreamTest {
                         return a.getAge().compareTo(b.getAge());
                     }
                 })
-                .limit(3)
+                .distinct()
+                .limit(6)
                 .collect(Collectors.toList());
         userList1.stream().forEach(System.out::println);
 

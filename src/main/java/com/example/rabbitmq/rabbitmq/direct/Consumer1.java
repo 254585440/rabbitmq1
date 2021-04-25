@@ -1,4 +1,4 @@
-package com.example.rabbitmq.topic;
+package com.example.rabbitmq.rabbitmq.direct;
 
 import com.example.rabbitmq.util.ConnectionUtil;
 import com.rabbitmq.client.*;
@@ -10,14 +10,14 @@ public class Consumer1 {
         Connection connection = ConnectionUtil.getConnection();
         Channel channel = connection.createChannel();
 
-        //将通道声明交换机  //参数1：交换机名称 参数2：交换机类型  topic 动态路由模式
-        channel.exchangeDeclare("topic","topic");
+        //将通道声明交换机  //参数1：交换机名称 参数2：交换机类型  direct 路由模式
+        channel.exchangeDeclare("logs_direct","direct");
 
         //创建临时队列
         String queneName = channel.queueDeclare().getQueue();
 
-        //基于路由key绑定交换机和队列 *匹配一个字符，#匹配多个字符
-        channel.queueBind(queneName,"topic","user.*");
+        //基于路由key绑定交换机和队列
+        channel.queueBind(queneName,"logs_direct","error");
 
         //消费消息
         channel.basicConsume(queneName,true,new DefaultConsumer(channel){

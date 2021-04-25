@@ -1,4 +1,4 @@
-package com.example.rabbitmq.topic;
+package com.example.rabbitmq.rabbitmq.workquene;
 
 import com.example.rabbitmq.util.ConnectionUtil;
 import com.rabbitmq.client.Channel;
@@ -9,12 +9,13 @@ public class Provider {
         Connection connection = ConnectionUtil.getConnection();
         Channel channel = connection.createChannel();
 
-        //将通道声明交换机  //参数1：交换机名称 参数2：交换机类型  topic 动态路由模式
-        channel.exchangeDeclare("topic","topic");
+        //通过通道声明队列
+        channel.queueDeclare("work",true,false,false,null);
 
-        //发送消息
-        String key = "user.save";
-        channel.basicPublish("topic",key,null,("这个topic发布的基于 key：{"+key+"}的消息").getBytes());
+        for(int i=0;i<10;i++){
+            //生产消息
+            channel.basicPublish("","work",null,(i+"hello work quene").getBytes());
+        }
 
         ConnectionUtil.closeConnectionAndChanel(connection,channel);
     }

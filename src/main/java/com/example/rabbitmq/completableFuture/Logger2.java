@@ -20,4 +20,12 @@ public class Logger2 {
     public void setReqUrl(String reqUrl) {
         this.reqUrl = reqUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Logger2{" +
+                "user='" + user + '\'' +
+                ", reqUrl='" + reqUrl + '\'' +
+                '}';
+    }
 }
